@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>数字之间转换</title>
+</head>
+<body>
+请输入文本：
+<input type="text" id="iptValue"/><br/><br/>
+转化前文本类型:
+<select id="sBeforeType">
+	<option  value="Arab">--请选择--</option>
+	<option value="Arab">阿拉伯</option>
+	<option value="zh-CN">简体</option>
+	<option value="zh-TW">繁体</option>
+</select><br/><br/>
+转化后文本类型:
+<select id="sAfterType">
+	<option  value="zh-CN">--请选择--</option>
+	<option  value="Arab">阿拉伯</option>
+	<option  value="zh-CN">简体</option>
+	<option  value="zh-TW">繁体</option>
+</select><br/><br/>
+<input type="button" id="btnTranfer" value="转  化" onclick="transfer()"/><br/><br/>
+<div id="afterTranfer"></div>
+</body>
+<script type="text/javascript">
+	//定义数字数组
+	var numberArray=
+	[
+		{"Arab":"1","zh-CN":"一","zh-TW":"壹"},
+		{"Arab":"2","zh-CN":"二","zh-TW":"贰"},
+		{"Arab":"3","zh-CN":"三","zh-TW":"叁"},
+		{"Arab":"4","zh-CN":"四","zh-TW":"肆"},
+		{"Arab":"5","zh-CN":"五","zh-TW":"伍"},
+		{"Arab":"6","zh-CN":"六","zh-TW":"陆"},
+		{"Arab":"7","zh-CN":"七","zh-TW":"柒"},
+		{"Arab":"8","zh-CN":"八","zh-TW":"捌"},
+		{"Arab":"9","zh-CN":"九","zh-TW":"玖"},
+		{"Arab":"0","zh-CN":"零","zh-TW":"零"}
+	];
+	/*获取转化后的数字*/
+	function transfer()
+	{
+		var value=document.getElementById("iptValue").value;
+		var beforeType=document.getElementById("sBeforeType").value;
+		var afterType=document.getElementById("sAfterType").value;
+		var afterValue=getNumber(value,beforeType,afterType);
+		document.getElementById("afterTranfer").innerHTML=afterValue;
+	}
+	/**
+	获取转化后的值，
+	value，
+	beforeType转化前的类型，用于取值，
+	afterType转化后的类型
+	*/
+	function getNumber(value,beforeType,afterType)
+	{
+		var valueArray=new Array();
+		for(var i=0;i<value.length;i++){
+			valueArray.push(value[i]);
+		}
+		var afterValue="";
+		for(var i=0;i<valueArray.length;i++){
+			for(var j=0;j<numberArray.length;j++){
+				if(numberArray[j][beforeType]==valueArray[i]){
+					afterValue+=numberArray[j][afterType];
+					break;
+				}
+			}
+		}
+		return afterValue;
+	}
+</script>
+</html>
